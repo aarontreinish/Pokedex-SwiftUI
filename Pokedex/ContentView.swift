@@ -15,13 +15,18 @@ struct DetailView: View {
     var url: String
     var name: String
     
+    func imageFromData(_ data:Data) -> UIImage {
+        UIImage(data: data) ?? UIImage()
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
-                Text(url)
+                Text("\(networkManager.details?.sprites?.frontDefault ?? "")")
+                UrlImageView(urlString: networkManager.details?.sprites?.frontDefault ?? "")
             }
-            .navigationBarTitle(Text(name), displayMode: .large)
         }
+        .navigationBarTitle(Text(name), displayMode: .large)
         .onAppear {
             self.networkManager.getDetails(url: self.url)
         }

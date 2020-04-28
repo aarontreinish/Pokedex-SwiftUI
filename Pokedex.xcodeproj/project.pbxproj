@@ -15,6 +15,8 @@
 		212FB7D12431594B008FE1C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212FB7CF2431594B008FE1C6 /* LaunchScreen.storyboard */; };
 		2141CC702432DE9C00008E40 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2141CC6F2432DE9C00008E40 /* Detail.swift */; };
 		2141CC722432DEB600008E40 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2141CC712432DEB600008E40 /* Pokemon.swift */; };
+		216B9FCF245874C200E579BB /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216B9FCE245874C200E579BB /* ImageLoader.swift */; };
+		216B9FD12458910000E579BB /* UrlImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216B9FD02458910000E579BB /* UrlImageView.swift */; };
 		21E18D9D2431780300431C0F /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E18D9C2431780300431C0F /* SearchBar.swift */; };
 		21E18D9F24317B8500431C0F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E18D9E24317B8500431C0F /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
@@ -30,6 +32,8 @@
 		212FB7D22431594B008FE1C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2141CC6F2432DE9C00008E40 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
 		2141CC712432DEB600008E40 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
+		216B9FCE245874C200E579BB /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		216B9FD02458910000E579BB /* UrlImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlImageView.swift; sourceTree = "<group>"; };
 		21E18D9C2431780300431C0F /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		21E18D9E24317B8500431C0F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,6 +74,8 @@
 				212FB7C824315944008FE1C6 /* ContentView.swift */,
 				21E18D9C2431780300431C0F /* SearchBar.swift */,
 				21E18D9E24317B8500431C0F /* NetworkManager.swift */,
+				216B9FCE245874C200E579BB /* ImageLoader.swift */,
+				216B9FD02458910000E579BB /* UrlImageView.swift */,
 				212FB7CA2431594B008FE1C6 /* Assets.xcassets */,
 				212FB7CF2431594B008FE1C6 /* LaunchScreen.storyboard */,
 				212FB7D22431594B008FE1C6 /* Info.plist */,
@@ -168,7 +174,9 @@
 			files = (
 				2141CC722432DEB600008E40 /* Pokemon.swift in Sources */,
 				21E18D9F24317B8500431C0F /* NetworkManager.swift in Sources */,
+				216B9FD12458910000E579BB /* UrlImageView.swift in Sources */,
 				212FB7C524315944008FE1C6 /* AppDelegate.swift in Sources */,
+				216B9FCF245874C200E579BB /* ImageLoader.swift in Sources */,
 				2141CC702432DE9C00008E40 /* Detail.swift in Sources */,
 				212FB7C724315944008FE1C6 /* SceneDelegate.swift in Sources */,
 				21E18D9D2431780300431C0F /* SearchBar.swift in Sources */,
