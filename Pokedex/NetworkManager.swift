@@ -27,6 +27,8 @@ class NetworkManager: ObservableObject {
     
     @Published var results = [Result]()
     @Published var details: Details?
+    @Published var names: [String] = []
+    @Published var urls: [String] = []
     
     func getPokemon() {
         guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=964") else { return }
@@ -50,6 +52,7 @@ class NetworkManager: ObservableObject {
                         let apiResponse = try JSONDecoder().decode(Pokemon.self, from: responseData)
                         DispatchQueue.main.async {
                             self.results = apiResponse.results ?? []
+                            self.appendData()
                         }
                     } catch {
                         print(error)
@@ -61,6 +64,13 @@ class NetworkManager: ObservableObject {
             }
         }
         .resume()
+    }
+    
+    func appendData() {
+        for result in results {
+            names.append(result.name ?? "")
+            urls.append(result.url ?? "")
+        }
     }
     
     func getDetails(url: String) {

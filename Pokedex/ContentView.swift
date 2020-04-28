@@ -43,9 +43,14 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 SearchBar(text: $searchText, placeholder: "Search for any Pokemon")
+                
                 List(networkManager.results) { results in
                     NavigationLink(destination: DetailView(url: results.url ?? "", name: results.name ?? "")) {
-                        Text(results.name ?? "")
+                        ForEach(self.networkManager.names.filter {
+                            self.searchText.isEmpty ? true : $0.localizedCaseInsensitiveContains(self.searchText.lowercased())
+                        }, id: \.self) { names in
+                            Text(names)
+                        }
                     }
                 }
             }
@@ -62,3 +67,17 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+//                List {
+//                    ForEach(self.networkManager.names.filter {
+//                        self.searchText.isEmpty ? true : $0.localizedCaseInsensitiveContains(self.searchText)
+//                    }, id: \.self) { names in
+//                        Text(names)
+//                    }
+//                }
+                
+//                List(networkManager.results) { results in
+//                    NavigationLink(destination: DetailView(url: results.url ?? "", name: results.name ?? "")) {
+//                        Text(results.name ?? "")
+//                    }
+//                }
