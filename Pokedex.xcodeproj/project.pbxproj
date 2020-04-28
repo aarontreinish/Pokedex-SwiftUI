@@ -13,6 +13,10 @@
 		212FB7CB2431594B008FE1C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 212FB7CA2431594B008FE1C6 /* Assets.xcassets */; };
 		212FB7CE2431594B008FE1C6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 212FB7CD2431594B008FE1C6 /* Preview Assets.xcassets */; };
 		212FB7D12431594B008FE1C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212FB7CF2431594B008FE1C6 /* LaunchScreen.storyboard */; };
+		2141CC702432DE9C00008E40 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2141CC6F2432DE9C00008E40 /* Detail.swift */; };
+		2141CC722432DEB600008E40 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2141CC712432DEB600008E40 /* Pokemon.swift */; };
+		21E18D9D2431780300431C0F /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E18D9C2431780300431C0F /* SearchBar.swift */; };
+		21E18D9F24317B8500431C0F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E18D9E24317B8500431C0F /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		212FB7CD2431594B008FE1C6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		212FB7D02431594B008FE1C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		212FB7D22431594B008FE1C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2141CC6F2432DE9C00008E40 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
+		2141CC712432DEB600008E40 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
+		21E18D9C2431780300431C0F /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		21E18D9E24317B8500431C0F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +64,12 @@
 		212FB7C324315944008FE1C6 /* Pokedex */ = {
 			isa = PBXGroup;
 			children = (
+				2141CC6E2432DE9000008E40 /* Model */,
 				212FB7C424315944008FE1C6 /* AppDelegate.swift */,
 				212FB7C624315944008FE1C6 /* SceneDelegate.swift */,
 				212FB7C824315944008FE1C6 /* ContentView.swift */,
+				21E18D9C2431780300431C0F /* SearchBar.swift */,
+				21E18D9E24317B8500431C0F /* NetworkManager.swift */,
 				212FB7CA2431594B008FE1C6 /* Assets.xcassets */,
 				212FB7CF2431594B008FE1C6 /* LaunchScreen.storyboard */,
 				212FB7D22431594B008FE1C6 /* Info.plist */,
@@ -73,6 +84,15 @@
 				212FB7CD2431594B008FE1C6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2141CC6E2432DE9000008E40 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2141CC6F2432DE9C00008E40 /* Detail.swift */,
+				2141CC712432DEB600008E40 /* Pokemon.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,8 +166,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2141CC722432DEB600008E40 /* Pokemon.swift in Sources */,
+				21E18D9F24317B8500431C0F /* NetworkManager.swift in Sources */,
 				212FB7C524315944008FE1C6 /* AppDelegate.swift in Sources */,
+				2141CC702432DE9C00008E40 /* Detail.swift in Sources */,
 				212FB7C724315944008FE1C6 /* SceneDelegate.swift in Sources */,
+				21E18D9D2431780300431C0F /* SearchBar.swift in Sources */,
 				212FB7C924315944008FE1C6 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
