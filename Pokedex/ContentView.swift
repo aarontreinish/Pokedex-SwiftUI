@@ -11,8 +11,7 @@ import SwiftUI
 struct DetailView: View {
     
     @ObservedObject var networkManager = NetworkManager()
-    
-    var url: String
+
     var name: String
     
     func imageFromData(_ data:Data) -> UIImage {
@@ -20,16 +19,64 @@ struct DetailView: View {
     }
     
     var body: some View {
-        NavigationView {
-            VStack {
-                Text("\(networkManager.details?.sprites?.frontDefault ?? "")")
+        ZStack(alignment: .topLeading) {
+            BackgroundDetailView()
+            HStack(alignment: .center) {
                 UrlImageView(urlString: networkManager.details?.sprites?.frontDefault ?? "")
+                VStack(alignment: .leading) {
+                    Text("#\(networkManager.details?.id ?? 0)")
+                    Text(name.capitalizingFirstLetter())
+                    if networkManager.types.count == 1 {
+                        Text("   \(networkManager.types.first ?? "Can't find type")   ")
+                            .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color("\(networkManager.types.first ?? "normal")")))
+                    } else if networkManager.types.count == 2 {
+                        HStack {
+                            Text("   \(networkManager.types.first ?? "Can't find type")   ")
+                                .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color("\(networkManager.types.first ?? "normal")")))
+                            Text("   \(networkManager.types.last ?? "Can't find type")   ")
+                                .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color("\(networkManager.types.last ?? "normal")")))
+                        }
+                    }
+                    
+                }
+                Spacer()
             }
+            
+            
+            
+            
+//            VStack(alignment: .center) {
+//                //                    RoundedRectangle(cornerRadius: 45)
+//                //                        .frame(width: 380, height: 200)
+//                //                        .foregroundColor(.gray)
+//                UrlImageView(urlString: networkManager.details?.sprites?.frontDefault ?? "")
+//
+//                VStack(alignment: .center, spacing: 25) {
+//                    Text("Weight: \(networkManager.details?.weight ?? 0)")
+//
+//                    if networkManager.types.count == 1 {
+//                        Text("Type: \(networkManager.types.first ?? "Can't find type")")
+//                    } else if networkManager.types.count == 2 {
+//                        Text("Type: \(networkManager.types.first ?? "Can't find type")  \(networkManager.types.last ?? "")")
+//                    }
+//                }
+//                Spacer()
+//
+//            }
         }
-        .navigationBarTitle(Text(name), displayMode: .large)
+        .navigationBarTitle(Text(name.capitalizingFirstLetter()), displayMode: .automatic)
         .onAppear {
-            self.networkManager.getDetails(url: self.url)
+            self.networkManager.getDetails(url: self.createUrl())
         }
+        .onDisappear {
+            self.networkManager.types = []
+        }
+    }
+    
+    func createUrl() -> String {
+        let url = "https://pokeapi.co/api/v2/pokemon/\(name)"
+        
+        return url
     }
 }
 
@@ -44,11 +91,11 @@ struct ContentView: View {
             VStack {
                 SearchBar(text: $searchText, placeholder: "Search for any Pokemon")
                 
-                List(networkManager.results) { results in
-                    NavigationLink(destination: DetailView(url: results.url ?? "", name: results.name ?? "")) {
-                        ForEach(self.networkManager.names.filter {
-                            self.searchText.isEmpty ? true : $0.localizedCaseInsensitiveContains(self.searchText.lowercased())
-                        }, id: \.self) { names in
+                List {
+                    ForEach(self.networkManager.names.filter {
+                        self.searchText.isEmpty ? true : $0.localizedCaseInsensitiveContains(self.searchText)
+                    }, id: \.self) { names in
+                        NavigationLink(destination: DetailView(name: names)) {
                             Text(names)
                         }
                     }
@@ -68,16 +115,12 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-//                List {
-//                    ForEach(self.networkManager.names.filter {
-//                        self.searchText.isEmpty ? true : $0.localizedCaseInsensitiveContains(self.searchText)
-//                    }, id: \.self) { names in
-//                        Text(names)
-//                    }
-//                }
-                
-//                List(networkManager.results) { results in
-//                    NavigationLink(destination: DetailView(url: results.url ?? "", name: results.name ?? "")) {
-//                        Text(results.name ?? "")
-//                    }
-//                }
+extension String {
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).capitalized + dropFirst()
+    }
+
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
+    }
+}

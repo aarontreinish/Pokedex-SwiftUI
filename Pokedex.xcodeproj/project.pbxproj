@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		210C7A1A2459E882008DCB6D /* BackgroundDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210C7A192459E882008DCB6D /* BackgroundDetailView.swift */; };
 		212FB7C524315944008FE1C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212FB7C424315944008FE1C6 /* AppDelegate.swift */; };
 		212FB7C724315944008FE1C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212FB7C624315944008FE1C6 /* SceneDelegate.swift */; };
 		212FB7C924315944008FE1C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212FB7C824315944008FE1C6 /* ContentView.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		210C7A192459E882008DCB6D /* BackgroundDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundDetailView.swift; sourceTree = "<group>"; };
 		212FB7C124315944008FE1C6 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		212FB7C424315944008FE1C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		212FB7C624315944008FE1C6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				21E18D9E24317B8500431C0F /* NetworkManager.swift */,
 				216B9FCE245874C200E579BB /* ImageLoader.swift */,
 				216B9FD02458910000E579BB /* UrlImageView.swift */,
+				210C7A192459E882008DCB6D /* BackgroundDetailView.swift */,
 				212FB7CA2431594B008FE1C6 /* Assets.xcassets */,
 				212FB7CF2431594B008FE1C6 /* LaunchScreen.storyboard */,
 				212FB7D22431594B008FE1C6 /* Info.plist */,
@@ -177,6 +180,7 @@
 				216B9FD12458910000E579BB /* UrlImageView.swift in Sources */,
 				212FB7C524315944008FE1C6 /* AppDelegate.swift in Sources */,
 				216B9FCF245874C200E579BB /* ImageLoader.swift in Sources */,
+				210C7A1A2459E882008DCB6D /* BackgroundDetailView.swift in Sources */,
 				2141CC702432DE9C00008E40 /* Detail.swift in Sources */,
 				212FB7C724315944008FE1C6 /* SceneDelegate.swift in Sources */,
 				21E18D9D2431780300431C0F /* SearchBar.swift in Sources */,

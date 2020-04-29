@@ -29,6 +29,7 @@ class NetworkManager: ObservableObject {
     @Published var details: Details?
     @Published var names: [String] = []
     @Published var urls: [String] = []
+    @Published var types: [String] = []
     
     func getPokemon() {
         guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=964") else { return }
@@ -52,7 +53,7 @@ class NetworkManager: ObservableObject {
                         let apiResponse = try JSONDecoder().decode(Pokemon.self, from: responseData)
                         DispatchQueue.main.async {
                             self.results = apiResponse.results ?? []
-                            self.appendData()
+                            self.appendResultsData()
                         }
                     } catch {
                         print(error)
@@ -66,7 +67,7 @@ class NetworkManager: ObservableObject {
         .resume()
     }
     
-    func appendData() {
+    func appendResultsData() {
         for result in results {
             names.append(result.name ?? "")
             urls.append(result.url ?? "")
@@ -96,6 +97,7 @@ class NetworkManager: ObservableObject {
                         let apiResponse = try JSONDecoder().decode(Details.self, from: responseData)
                         DispatchQueue.main.async {
                             self.details = apiResponse
+                            self.appendDetailsData()
                         }
                     } catch {
                         print(error)
@@ -107,6 +109,12 @@ class NetworkManager: ObservableObject {
             }
         }
         .resume()
+    }
+    
+    func appendDetailsData() {
+        for type in details?.types ?? [] {
+            types.append(type.type?.name ?? "Can't find type")
+        }
     }
     
     fileprivate func handleNetworkResponse(_ response: HTTPURLResponse) -> HTTPResult<String> {
