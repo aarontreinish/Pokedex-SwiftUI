@@ -43,7 +43,7 @@ struct Details: Codable, Identifiable {
 struct Ability: Codable {
     let isHidden: Bool?
     let slot: Int?
-    let ability: Species?
+    let ability: DetailsSpecies?
 
     enum CodingKeys: String, CodingKey {
         case isHidden = "is_hidden"
@@ -52,7 +52,7 @@ struct Ability: Codable {
 }
 
 // MARK: - Species
-struct Species: Codable {
+struct DetailsSpecies: Codable {
     let name: String?
     let url: String?
 }
