@@ -33,7 +33,7 @@ struct DetailView: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             Rectangle()
-                .fill(Color("\(typesArray.first ?? "normal")Background"))
+                .fill(Color("\(typesArray.last ?? "normal")Background"))
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
@@ -55,11 +55,11 @@ struct DetailView: View {
                                 .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color("\(typesArray.first ?? "normal")")))
                         } else if typesArray.count == 2 {
                             HStack {
-                                Text("   \(typesArray.first ?? "Can't find type")   ")
-                                    .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color("\(typesArray.first ?? "normal")")))
-                                    .foregroundColor(.white)
                                 Text("   \(typesArray.last ?? "Can't find type")   ")
                                     .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color("\(typesArray.last ?? "normal")")))
+                                    .foregroundColor(.white)
+                                Text("   \(typesArray.first ?? "Can't find type")   ")
+                                    .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color("\(typesArray.first ?? "normal")")))
                                     .foregroundColor(.white)
                             }
                         }
@@ -122,7 +122,7 @@ struct DetailView: View {
                             
                             
                             Text("Pokedex Data")
-                                .foregroundColor(Color("\(typesArray.first ?? "normal")"))
+                                .foregroundColor(Color("\(typesArray.last ?? "normal")"))
                             
                             HStack {
                                 Text("Species")
@@ -160,7 +160,7 @@ struct DetailView: View {
                                     Text(details?.abilities?.first?.ability?.name ?? "")
                                         .foregroundColor(.gray)
                                 } else if details?.abilities?.count ?? 0 > 1 {
-                                    Text("\(details?.abilities?.first?.ability?.name ?? "") and \(details?.abilities?.last?.ability?.name ?? "")")
+                                    Text("\(details?.abilities?.last?.ability?.name ?? "") and \(details?.abilities?.first?.ability?.name ?? "")")
                                         .foregroundColor(.gray)
                                 }
                             }
@@ -187,22 +187,22 @@ struct DetailView: View {
                         
                         VStack(alignment: .leading) {
                             Text("Base Stats")
-                                .foregroundColor(Color("\(typesArray.first ?? "normal")"))
+                                .foregroundColor(Color("\(typesArray.last ?? "normal")"))
                                 .padding(.top, 10)
                             
-                            BarView(color: "\(typesArray.first ?? "normal")", stat: "HP", statValue: CGFloat(details?.stats?[5].baseStat ?? 0), statValueText: details?.stats?[5].baseStat ?? 0)
+                            BarView(color: "\(typesArray.last ?? "normal")", stat: "HP", statValue: CGFloat(details?.stats?[5].baseStat ?? 0), statValueText: details?.stats?[5].baseStat ?? 0)
                             
-                            BarView(color: "\(typesArray.first ?? "normal")", stat: "Attack", statValue: CGFloat(details?.stats?[4].baseStat ?? 0), statValueText: details?.stats?[4].baseStat ?? 0)
+                            BarView(color: "\(typesArray.last ?? "normal")", stat: "Attack", statValue: CGFloat(details?.stats?[4].baseStat ?? 0), statValueText: details?.stats?[4].baseStat ?? 0)
                             
-                            BarView(color: "\(typesArray.first ?? "normal")", stat: "Defense", statValue: CGFloat(details?.stats?[3].baseStat ?? 0), statValueText: details?.stats?[3].baseStat ?? 0)
+                            BarView(color: "\(typesArray.last ?? "normal")", stat: "Defense", statValue: CGFloat(details?.stats?[3].baseStat ?? 0), statValueText: details?.stats?[3].baseStat ?? 0)
                             
-                            BarView(color: "\(typesArray.first ?? "normal")", stat: "Sp. Atk", statValue: CGFloat(details?.stats?[2].baseStat ?? 0), statValueText: details?.stats?[2].baseStat ?? 0)
+                            BarView(color: "\(typesArray.last ?? "normal")", stat: "Sp. Atk", statValue: CGFloat(details?.stats?[2].baseStat ?? 0), statValueText: details?.stats?[2].baseStat ?? 0)
                             
-                            BarView(color: "\(typesArray.first ?? "normal")", stat: "Sp. Def", statValue: CGFloat(details?.stats?[1].baseStat ?? 0), statValueText: details?.stats?[1].baseStat ?? 0)
+                            BarView(color: "\(typesArray.last ?? "normal")", stat: "Sp. Def", statValue: CGFloat(details?.stats?[1].baseStat ?? 0), statValueText: details?.stats?[1].baseStat ?? 0)
                             
-                            BarView(color: "\(typesArray.first ?? "normal")", stat: "Speed", statValue: CGFloat(details?.stats?[0].baseStat ?? 0), statValueText: details?.stats?[0].baseStat ?? 0)
+                            BarView(color: "\(typesArray.last ?? "normal")", stat: "Speed", statValue: CGFloat(details?.stats?[0].baseStat ?? 0), statValueText: details?.stats?[0].baseStat ?? 0)
                             
-                            BarView(color: "\(typesArray.first ?? "normal")", stat: "Total", statValue: getTotalStats(), statValueText: getTotalStatsText())
+                            BarView(color: "\(typesArray.last ?? "normal")", stat: "Total", statValue: getTotalStats(), statValueText: getTotalStatsText())
                         }
                         .padding(.leading, 10)
                     }
