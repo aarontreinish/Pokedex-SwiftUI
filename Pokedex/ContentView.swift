@@ -16,6 +16,8 @@ struct DetailView: View {
     
     @ObservedObject var networkManager = NetworkManager()
     
+    @ObservedObject var weaknessManager = WeaknessesManager()
+    
     @State var selected = 0
     
     var name = ""
@@ -170,8 +172,18 @@ struct DetailView: View {
                                     .frame(width: 100, height: 20, alignment: .leading)
                                     .foregroundColor(.black)
                                 
-                                Text("  \(typesArray.first ?? "Can't find type")  ")
-                                    .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color("\(typesArray.first ?? "normal")")))
+                                if typesArray.count == 1 {
+                                    ForEach(weaknessManager.getWeaknessesForSingleType(type1: typesArray.first ?? "normal"), id: \.self) { weaknesses in
+                                        Text("  \(weaknesses)  ")
+                                            .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color("\(weaknesses)")))
+                                    }
+                                        
+                                } else if typesArray.count == 2 {
+                                    ForEach(weaknessManager.getWeaknessesForDualTypes(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal"), id: \.self) { weaknesses in
+                                        Text("  \(weaknesses)  ")
+                                            .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color("\(weaknesses)")))
+                                    }
+                                }
                             }
                             
                         }
