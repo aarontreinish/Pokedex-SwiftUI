@@ -32,26 +32,32 @@ struct DetailView: View {
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
     
+    let firstNineTypeIcons = ["normal_icon", "fire_icon", "water_icon", "electric_icon", "grass_icon", "ice_icon", "fighting_icon", "poison_icon", "ground_icon"]
+    let secondNineTypeIcons = ["flying_icon", "psychic_icon", "bug_icon", "rock_icon", "ghost_icon", "dragon_icon", "dark_icon", "steel_icon", "fairy_icon"]
+    
     var body: some View {
         ZStack(alignment: .topLeading) {
+            
+            // BACKGROUND
             Rectangle()
                 .fill(Color("\(typesArray.last ?? "normal")Background"))
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
                 Spacer()
+                // TOP VIEW
                 HStack(alignment: .center) {
                     UrlImageView(urlString: details?.sprites?.frontDefault ?? "")
-                    //.padding(.leading)
+                    
                     VStack(alignment: .leading) {
                         Text("#\(details?.id ?? 0)")
                             .padding(.bottom)
                             .foregroundColor(.white)
-                        //.font(.largeTitle)
+                        
                         Text(name.capitalizingFirstLetter())
                             .padding(.bottom)
                             .foregroundColor(.white)
-                        //.font(.largeTitle)
+                        
                         if typesArray.count == 1 {
                             Text("   \(typesArray.first ?? "Can't find type")   ")
                                 .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color("\(typesArray.first ?? "normal")")))
@@ -70,6 +76,7 @@ struct DetailView: View {
                     Spacer()
                 }
                 
+                // SEGMENTED BUTTONS
                 HStack(spacing: 50) {
                     Button(action: {
                         self.selected = 0
@@ -114,81 +121,133 @@ struct DetailView: View {
                             .foregroundColor(.white)
                             .edgesIgnoringSafeArea(.bottom)
                         
-                        //ZStack(alignment: .leading) {
                         VStack(alignment: .leading, spacing: 20) {
-                            Text(getFlavorText())
-                                .foregroundColor(.gray)
-                                .lineLimit(nil)
-                                .font(.system(size: 15))
-                                .padding(.top, 10)
+                            Group {
+                                Text(getFlavorText())
+                                    .foregroundColor(.gray)
+                                    .lineLimit(nil)
+                                    .font(.system(size: 15))
+                                    .padding(.top, 10)
+                                
+                                Text("Pokedex Data")
+                                    .foregroundColor(Color("\(typesArray.last ?? "normal")"))
+                                
+                                // SPECIES
+                                HStack {
+                                    Text("Species")
+                                        .frame(width: 105, height: 20, alignment: .leading)
+                                        .foregroundColor(.black)
+                                    
+                                    Text(getGenus())
+                                        .foregroundColor(.gray)
+                                }
+                                
+                                // HEIGHT
+                                HStack {
+                                    Text("Height")
+                                        .frame(width: 105, height: 20, alignment: .leading)
+                                        .foregroundColor(.black)
+                                    
+                                    Text("\(calculateHeight()) in")
+                                        .foregroundColor(.gray)
+                                }
+                                
+                                // WEIGHT
+                                HStack {
+                                    Text("Weight")
+                                        .frame(width: 105, height: 20, alignment: .leading)
+                                        .foregroundColor(.black)
+                                    
+                                    Text("\(calculateWeight()) lbs")
+                                        .foregroundColor(.gray)
+                                }
+                                
+                                // HABITAT
+                                HStack {
+                                    Text("Habitat")
+                                        .frame(width: 105, height: 20, alignment: .leading)
+                                        .foregroundColor(.black)
+                                    
+                                    Text("\(species?.habitat?.name ?? "")")
+                                        .foregroundColor(.gray)
+                                }
+                                
+                                // ABILITIES
+                                HStack {
+                                    Text("Abilities")
+                                        .frame(width: 105, height: 20, alignment: .leading)
+                                        .foregroundColor(.black)
+                                    
+                                    if details?.abilities?.count == 1 {
+                                        Text(details?.abilities?.first?.ability?.name ?? "")
+                                            .foregroundColor(.gray)
+                                    } else if details?.abilities?.count ?? 0 > 1 {
+                                        Text("\(details?.abilities?.last?.ability?.name ?? "") and \(details?.abilities?.first?.ability?.name ?? "")")
+                                            .foregroundColor(.gray)
+                                    }
+                                }
+                                
+                                // WEAKNESSES
+                                HStack {
+                                    Text("Weaknesses")
+                                        .frame(width: 105, height: 20, alignment: .leading)
+                                        .foregroundColor(.black)
+                                    
+                                    if typesArray.count == 1 {
+                                        ForEach(weaknessManager.getWeaknessesForSingleType(type1: typesArray.first ?? "normal"), id: \.self) { weaknesses in
+                                            Image("\(weaknesses)_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            
+                                        }
+                                        
+                                    } else if typesArray.count == 2 {
+                                        ForEach(weaknessManager.getWeaknessesForDualTypes(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal"), id: \.self) { weaknesses in
+                                            Image("\(weaknesses)_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                        }
+                                    }
+                                }
+                            }
                             
-                            
-                            Text("Pokedex Data")
+                            Text("Training")
                                 .foregroundColor(Color("\(typesArray.last ?? "normal")"))
                             
+                            // BASE EXP
                             HStack {
-                                Text("Species")
-                                    .frame(width: 100, height: 20, alignment: .leading)
+                                Text("Base Exp")
+                                    .frame(width: 105, height: 20, alignment: .leading)
                                     .foregroundColor(.black)
                                 
-                                Text(getGenus())
+                                Text("\(details?.baseExperience ?? 0)")
                                     .foregroundColor(.gray)
                             }
                             
-                            HStack{
-                                Text("Height")
-                                    .frame(width: 100, height: 20, alignment: .leading)
+                            // GROWTH RATE
+                            HStack {
+                                Text("Growth Rate")
+                                    .frame(width: 105, height: 20, alignment: .leading)
                                     .foregroundColor(.black)
                                 
-                                Text("\(calculateHeight()) in")
+                                Text("\(species?.growth_rate?.name ?? "")")
                                     .foregroundColor(.gray)
                             }
                             
+                            // CAPTURE RATE
                             HStack {
-                                Text("Weight")
-                                    .frame(width: 100, height: 20, alignment: .leading)
+                                Text("Capture Rate")
+                                    .frame(width: 105, height: 20, alignment: .leading)
                                     .foregroundColor(.black)
                                 
-                                Text("\(calculateWeight()) lbs")
+                                Text("\(species?.capture_rate ?? 0)")
                                     .foregroundColor(.gray)
-                            }
-                            
-                            HStack {
-                                Text("Abilities")
-                                    .frame(width: 100, height: 20, alignment: .leading)
-                                    .foregroundColor(.black)
-                                
-                                if details?.abilities?.count == 1 {
-                                    Text(details?.abilities?.first?.ability?.name ?? "")
-                                        .foregroundColor(.gray)
-                                } else if details?.abilities?.count ?? 0 > 1 {
-                                    Text("\(details?.abilities?.last?.ability?.name ?? "") and \(details?.abilities?.first?.ability?.name ?? "")")
-                                        .foregroundColor(.gray)
-                                }
-                            }
-                            
-                            HStack {
-                                Text("Weaknesses")
-                                    .frame(width: 100, height: 20, alignment: .leading)
-                                    .foregroundColor(.black)
-                                
-                                if typesArray.count == 1 {
-                                    ForEach(weaknessManager.getWeaknessesForSingleType(type1: typesArray.first ?? "normal"), id: \.self) { weaknesses in
-                                        Text("  \(weaknesses)  ")
-                                            .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color("\(weaknesses)")))
-                                    }
-                                        
-                                } else if typesArray.count == 2 {
-                                    ForEach(weaknessManager.getWeaknessesForDualTypes(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal"), id: \.self) { weaknesses in
-                                        Text("  \(weaknesses)  ")
-                                            .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color("\(weaknesses)")))
-                                    }
-                                }
                             }
                             
                         }
                         .padding(.leading, 10)
-                        //}
                     }
                 } else if selected == 1 {
                     ZStack(alignment: .topLeading) {
@@ -197,24 +256,346 @@ struct DetailView: View {
                             .foregroundColor(.white)
                             .edgesIgnoringSafeArea(.bottom)
                         
-                        VStack(alignment: .leading) {
-                            Text("Base Stats")
+                        VStack(alignment: .leading, spacing: 20) {
+                            // STATS GRAPHS
+                            Group {
+                                Text("Base Stats")
+                                    .foregroundColor(Color("\(typesArray.last ?? "normal")"))
+                                    .padding(.top, 10)
+                                
+                                BarView(color: "\(typesArray.last ?? "normal")", stat: "HP", statValue: CGFloat(details?.stats?[5].baseStat ?? 0), statValueText: details?.stats?[5].baseStat ?? 0)
+                                
+                                BarView(color: "\(typesArray.last ?? "normal")", stat: "Attack", statValue: CGFloat(details?.stats?[4].baseStat ?? 0), statValueText: details?.stats?[4].baseStat ?? 0)
+                                
+                                BarView(color: "\(typesArray.last ?? "normal")", stat: "Defense", statValue: CGFloat(details?.stats?[3].baseStat ?? 0), statValueText: details?.stats?[3].baseStat ?? 0)
+                                
+                                BarView(color: "\(typesArray.last ?? "normal")", stat: "Sp. Atk", statValue: CGFloat(details?.stats?[2].baseStat ?? 0), statValueText: details?.stats?[2].baseStat ?? 0)
+                                
+                                BarView(color: "\(typesArray.last ?? "normal")", stat: "Sp. Def", statValue: CGFloat(details?.stats?[1].baseStat ?? 0), statValueText: details?.stats?[1].baseStat ?? 0)
+                                
+                                BarView(color: "\(typesArray.last ?? "normal")", stat: "Speed", statValue: CGFloat(details?.stats?[0].baseStat ?? 0), statValueText: details?.stats?[0].baseStat ?? 0)
+                                
+                                BarView(color: "\(typesArray.last ?? "normal")", stat: "Total", statValue: getTotalStats(), statValueText: getTotalStatsText())
+                            }
+                            
+                            // TYPE DEFENSES
+                            Text("Type Defenses")
                                 .foregroundColor(Color("\(typesArray.last ?? "normal")"))
-                                .padding(.top, 10)
+                            Text("Effectiveness of each type on \(name.capitalizingFirstLetter())")
+                                .foregroundColor(.gray)
                             
-                            BarView(color: "\(typesArray.last ?? "normal")", stat: "HP", statValue: CGFloat(details?.stats?[5].baseStat ?? 0), statValueText: details?.stats?[5].baseStat ?? 0)
+                            if typesArray.count == 1 {
+                                HStack(spacing: 15) {
+                                    Group {
+                                        VStack {
+                                            Image("normal_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[0])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("fire_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[1])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("water_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[2])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("electric_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[3])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("grass_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[4])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("ice_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[5])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("fighting_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[6])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("poison_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[7])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("ground_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[8])")
+                                            .foregroundColor(.black)
+                                        }
+                                    }
+                                    
+                                }
+                                
+                                HStack(spacing: 15) {
+                                    Group {
+                                        VStack {
+                                            Image("flying_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[0])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("psychic_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[1])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("bug_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[2])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("rock_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[3])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("ghost_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[4])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("dragon_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[5])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("ghost_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[6])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("steel_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[7])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("fairy_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForSingleType(type1: typesArray.first ?? "normal")[8])")
+                                            .foregroundColor(.black)
+                                        }
+                                    }
+                                }
+                            } else if typesArray.count == 2 {
+                                HStack(spacing: 15) {
+                                    Group {
+                                        VStack {
+                                            Image("normal_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[0])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("fire_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[1])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("water_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[2])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("electric_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[3])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("grass_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[4])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("ice_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[5])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("fighting_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[6])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("poison_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[7])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("ground_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateFirstTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[8])")
+                                            .foregroundColor(.black)
+                                        }
+                                    }
+                                    
+                                }
+                                
+                                HStack(spacing: 15) {
+                                    Group {
+                                        VStack {
+                                            Image("flying_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[0])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("psychic_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[1])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("bug_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[2])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("rock_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[3])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("ghost_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[4])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("dragon_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[5])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("ghost_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[6])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("steel_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[7])")
+                                            .foregroundColor(.black)
+                                        }
+                                        VStack {
+                                            Image("fairy_icon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 30, alignment: .center)
+                                            Text("\(weaknessManager.calculateSecondTypeDefensesForDualType(type1: typesArray.last ?? "normal", type2: typesArray.first ?? "normal")[8])")
+                                            .foregroundColor(.black)
+                                        }
+                                    }
+                                }
+                            }
                             
-                            BarView(color: "\(typesArray.last ?? "normal")", stat: "Attack", statValue: CGFloat(details?.stats?[4].baseStat ?? 0), statValueText: details?.stats?[4].baseStat ?? 0)
-                            
-                            BarView(color: "\(typesArray.last ?? "normal")", stat: "Defense", statValue: CGFloat(details?.stats?[3].baseStat ?? 0), statValueText: details?.stats?[3].baseStat ?? 0)
-                            
-                            BarView(color: "\(typesArray.last ?? "normal")", stat: "Sp. Atk", statValue: CGFloat(details?.stats?[2].baseStat ?? 0), statValueText: details?.stats?[2].baseStat ?? 0)
-                            
-                            BarView(color: "\(typesArray.last ?? "normal")", stat: "Sp. Def", statValue: CGFloat(details?.stats?[1].baseStat ?? 0), statValueText: details?.stats?[1].baseStat ?? 0)
-                            
-                            BarView(color: "\(typesArray.last ?? "normal")", stat: "Speed", statValue: CGFloat(details?.stats?[0].baseStat ?? 0), statValueText: details?.stats?[0].baseStat ?? 0)
-                            
-                            BarView(color: "\(typesArray.last ?? "normal")", stat: "Total", statValue: getTotalStats(), statValueText: getTotalStatsText())
                         }
                         .padding(.leading, 10)
                     }
@@ -244,10 +625,6 @@ struct DetailView: View {
             }
             self.networkManager.getSpecies(url: "https://pokeapi.co/api/v2/pokemon-species/\(self.name)") { (species) in
                 self.species = species
-            }
-            self.networkManager.getTypes(url: "https://pokeapi.co/api/v2/type/\(self.name)") { (types) in
-                self.types = types
-                //self.getWeaknesses()
             }
         }
     }
@@ -397,8 +774,25 @@ extension String {
     func capitalizingFirstLetter() -> String {
         return prefix(1).capitalized + dropFirst()
     }
-
+    
     mutating func capitalizeFirstLetter() {
         self = self.capitalizingFirstLetter()
     }
 }
+
+//
+//ForEach(weaknessManager.calculateTypeDefensesForSingleType(type1: typesArray.first ?? "normal"), id: \.self) { q in
+//
+//    VStack {
+//        ForEach(q.map{$0.key}, id: \.self) { w in
+//            Image("\(w)")
+//                .resizable()
+//                .scaledToFit()
+//                .frame(width: 30, height: 30, alignment: .center)
+//        }
+//
+//        ForEach(q.map{$0.value}, id: \.self) { w in
+//            Text("\(w)")
+//        }
+//    }
+//}

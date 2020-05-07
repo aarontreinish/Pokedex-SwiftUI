@@ -24,6 +24,8 @@ struct Species: Codable, Identifiable {
     let habitat: Habitat?
     let flavor_text_entries: [Flavor_text_entries]?
     let genera: [Genera]?
+    let growth_rate: Growth_rate?
+    let evolution_chain: Evolution_chain?
 
 }
 
@@ -72,6 +74,17 @@ struct PokedexSpecies: Codable {
 
 struct Habitat: Codable {
     let name: String?
+    let url: String?
+
+}
+
+struct Growth_rate: Codable {
+    let name: String?
+    let url: String?
+
+}
+
+struct Evolution_chain: Codable {
     let url: String?
 
 }
