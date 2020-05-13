@@ -25,6 +25,12 @@ struct DetailView: View {
     @State var details: Details?
     @State var typesArray: [String] = []
     
+    @State var moves: [String] = []
+    @State var movesMethodLearned: [String] = []
+    @State var levelMoveLearned: [String] = []
+    
+    @State var movesObject: [Moves] = []
+    
     @State var species: Species?
     
     @State var types: Types?
@@ -47,7 +53,13 @@ struct DetailView: View {
                 Spacer()
                 // TOP VIEW
                 HStack(alignment: .center) {
-                    UrlImageView(urlString: details?.sprites?.frontDefault ?? "")
+                    Image("\(details?.id ?? 0)")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150, alignment: .center)
+                        .padding(.leading, 20)
+                        .padding(.trailing, 20)
+                    //UrlImageView(urlString: details?.sprites?.frontDefault ?? "")
                     
                     VStack(alignment: .leading) {
                         Text("#\(details?.id ?? 0)")
@@ -80,7 +92,6 @@ struct DetailView: View {
                 HStack(spacing: 50) {
                     Button(action: {
                         self.selected = 0
-                        print(self.selected)
                     }) {
                         Text("About")
                     }
@@ -88,7 +99,6 @@ struct DetailView: View {
                     
                     Button(action: {
                         self.selected = 1
-                        print(self.selected)
                     }) {
                         Text("Stats")
                     }
@@ -96,7 +106,6 @@ struct DetailView: View {
                     
                     Button(action: {
                         self.selected = 2
-                        print(self.selected)
                     }) {
                         Text("Moves")
                     }
@@ -104,7 +113,6 @@ struct DetailView: View {
                     
                     Button(action: {
                         self.selected = 3
-                        print(self.selected)
                     }) {
                         Text("Evolution")
                     }
@@ -606,6 +614,31 @@ struct DetailView: View {
                             .foregroundColor(.white)
                             .edgesIgnoringSafeArea(.bottom)
                         
+                        ScrollView {
+                            VStack {
+//                                ForEach(, id: \.self) { moves in
+//                                    Text("\(moves)")
+//                                }
+                                Text("")
+                            }
+                        }
+//                        HStack {
+//                            VStack {
+//                                ForEach(moves, id: \.self) { moves in
+//                                    Text("\(moves)")
+//                                }
+//                            }
+//                            VStack {
+//                                ForEach(movesMethodLearned, id: \.self) { method in
+//                                    Text("\(method)")
+//                                }
+//                            }
+//                            VStack {
+//                                ForEach(levelMoveLearned, id: \.self) { level in
+//                                    Text("\(level)")
+//                                }
+//                            }
+//                        }
                         
                     }
                 } else if selected == 3 {
@@ -622,6 +655,7 @@ struct DetailView: View {
             self.networkManager.getDetails(url: "https://pokeapi.co/api/v2/pokemon/\(self.name)") { (details) in
                 self.details = details
                 self.appendDetailsData()
+                self.getMoves()
             }
             self.networkManager.getSpecies(url: "https://pokeapi.co/api/v2/pokemon-species/\(self.name)") { (species) in
                 self.species = species
@@ -683,6 +717,33 @@ struct DetailView: View {
             }
         }
         return text
+    }
+    
+    func getMoves() {
+        
+        var levels: [Int] = []
+        var versionGroupDetails: [Version_group_details] = []
+        
+        for move in details?.moves ?? [] {
+            //moves.append(move.move?.name ?? "")
+            versionGroupDetails.append(contentsOf: move.version_group_details ?? [])
+            
+        }
+        
+        for details in versionGroupDetails {
+
+            if details.move_learn_method?.name == "level-up" && details.version_group?.name == "sun-moon" {
+
+                print(details.level_learned_at)
+            }
+
+        }
+        
+        levelMoveLearned = levels.map { String($0) }
+        
+        //print(moves.count)
+        //print(movesMethodLearned.count)
+        //print(levels.count)
     }
     
     func calculateWeight() -> Int {

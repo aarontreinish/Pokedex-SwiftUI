@@ -20,7 +20,7 @@ struct Details: Codable, Identifiable {
     let gameIndices: [GameIndex]?
     let heldItems: [HeldItem]?
     let locationAreaEncounters: String?
-    let moves: [Move]?
+    let moves: [Moves]?
     let species: Species?
     let sprites: Sprites?
     let stats: [Stat]?
@@ -124,27 +124,37 @@ struct EncounterDetail: Codable {
     }
 }
 
-// MARK: - Move
-struct Move: Codable {
-    let move: Species?
-    let versionGroupDetails: [VersionGroupDetail]?
+// MARK: - Moves
+struct Moves : Codable {
+    let move: Move?
+    let version_group_details: [Version_group_details]?
 
-    enum CodingKeys: String, CodingKey {
-        case move
-        case versionGroupDetails = "version_group_details"
-    }
 }
 
 // MARK: - VersionGroupDetail
-struct VersionGroupDetail: Codable {
-    let levelLearnedAt: Int?
-    let versionGroup, moveLearnMethod: Species?
+struct Version_group_details: Codable {
+    let level_learned_at: Int?
+    let version_group: Version_group?
+    let move_learn_method: Move_learn_method?
 
-    enum CodingKeys: String, CodingKey {
-        case levelLearnedAt = "level_learned_at"
-        case versionGroup = "version_group"
-        case moveLearnMethod = "move_learn_method"
-    }
+}
+
+struct Move: Codable {
+    let name: String?
+    let url: String?
+
+}
+
+struct Version_group: Codable {
+    let name: String?
+    let url: String?
+
+}
+
+struct Move_learn_method: Codable {
+    let name: String?
+    let url: String?
+
 }
 
 // MARK: - Sprites

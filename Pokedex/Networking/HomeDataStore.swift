@@ -12,6 +12,7 @@ import Combine
 class HomeDataStore: ObservableObject {
     @Published var names: [String] = []
     @Published var results: [Result] = []
+    @Published var id: [String] = []
     
     init() {
         getPokemon()
@@ -25,9 +26,16 @@ class HomeDataStore: ObservableObject {
     }
     
     func appendResultsData() {
+        
+        var url: [String] = []
+        
         for result in results {
             names.append(result.name ?? "")
-            //urls.append(result.url ?? "")
+            url.append(String(result.url?.dropFirst(34) ?? ""))
+        }
+        
+        for ids in url {
+            id.append(String(ids.dropLast()))
         }
     }
 }

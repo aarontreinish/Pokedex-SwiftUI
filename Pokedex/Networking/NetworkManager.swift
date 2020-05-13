@@ -34,7 +34,7 @@ class NetworkManager: ObservableObject {
     @Published var types: [String] = []
     
     func getPokemon(completion: @escaping ([Result]) -> ()) {
-        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=964") else { return }
+        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=721") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if error != nil {
