@@ -1117,58 +1117,58 @@ class WeaknessesManager: ObservableObject {
         var weaknesses: [String] = []
         
         if type1 == "normal" {
-            weaknesses = ["1", "1", "1", "1", "1", "1", "2", "1", "1"]
+            weaknesses = normalWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "fire" {
-            weaknesses = ["1", "1/2", "2", "1", "1/2", "1/2", "1", "1", "2"]
+            weaknesses = fireWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "water" {
-            weaknesses = ["1", "1/2", "1/2", "2", "2", "1/2", "1", "1", "1"]
+            weaknesses = waterWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "electric" {
-            weaknesses = ["1", "1", "1", "1/2", "1", "1", "1", "1", "2"]
+            weaknesses = electricWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "grass" {
-            weaknesses = ["1", "2", "1/2", "1/2", "1/2", "2", "1", "2", "1/2"]
+            weaknesses = grassWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "ice" {
-            weaknesses = ["1", "2", "1", "1", "1", "1/2", "2", "1", "1"]
+            weaknesses = iceWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "fighting" {
-            weaknesses = ["1", "1", "1", "1", "1", "1", "1", "1", "1"]
+            weaknesses = fightingWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "poison" {
-            weaknesses = ["1", "1", "1", "1", "1/2", "1", "1/2", "1/2", "2"]
+            weaknesses = poisonWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "ground" {
-            weaknesses = ["1", "1", "2", "0", "2", "2", "1", "1/2", "1"]
+            weaknesses = groundWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "flying" {
-            weaknesses = ["1", "1", "1", "2", "1/2", "2", "1/2", "1", "0"]
+            weaknesses = flyingWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "psychic" {
-            weaknesses = ["1", "1", "1", "1", "1", "1", "1/2", "1", "1"]
+            weaknesses = psychicWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "bug" {
-            weaknesses = ["1", "2", "1", "1", "1/2", "1", "1/2", "1", "1/2"]
+            weaknesses = bugWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "rock" {
-            weaknesses = ["1/2", "1/2", "2", "1", "2", "1", "2", "1/2", "2"]
+            weaknesses = rockWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "ghost" {
-            weaknesses = ["0", "1", "1", "1", "1", "1", "0", "1/2", "1"]
+            weaknesses = ghostWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "dragon" {
-            weaknesses = ["1", "1/2", "1/2", "1/2", "1/2", "2", "1", "1", "1"]
+            weaknesses = dragonWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "dark" {
-            weaknesses = ["1", "1", "1", "1", "1", "1", "2", "1", "1"]
+            weaknesses = darkWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "steel" {
-            weaknesses = ["1/2", "2", "1", "1", "1/2", "1/2", "2", "0", "2"]
+            weaknesses = steelWeaknessesFirst.map { String($0) }
             return weaknesses
         } else if type1 == "fairy" {
-            weaknesses = ["1", "1", "1", "1", "1", "1", "1/2", "2", "1"]
+            weaknesses = fairyWeaknessesFirst.map { String($0) }
             return weaknesses
         }
         return weaknesses
@@ -1179,58 +1179,58 @@ class WeaknessesManager: ObservableObject {
         var weaknesses: [String] = []
         
         if type1 == "normal" {
-            weaknesses = ["1", "1", "1", "1", "0", "1", "1", "1", "1"]
+            weaknesses = normalWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "fire" {
-            weaknesses = ["1", "1", "1/2", "2", "1", "1", "1", "1/2", "1"]
+            weaknesses = fireWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "water" {
-            weaknesses = ["1", "1", "1", "1", "1", "1", "1", "1/2", "1"]
+            weaknesses = waterWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "electric" {
-            weaknesses = ["1/2", "1", "1", "1", "1", "1", "1", "1/2", "1"]
+            weaknesses = electricWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "grass" {
-            weaknesses = ["2", "1", "2", "1", "1", "1", "1", "1", "1"]
+            weaknesses = grassWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "ice" {
-            weaknesses = ["1", "1", "1", "2", "1", "1", "1", "2", "1"]
+            weaknesses = iceWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "fighting" {
-            weaknesses = ["2", "2", "1/2", "1/2", "1", "1", "1/2", "1", "2"]
+            weaknesses = fightingWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "poison" {
-            weaknesses = ["1", "2", "1/2", "1/2", "1", "1", "1", "1", "1/2"]
+            weaknesses = poisonWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "ground" {
-            weaknesses = ["1", "1", "1", "1/2", "1", "1", "1", "1", "1"]
+            weaknesses = groundWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "flying" {
-            weaknesses = ["1", "1", "1/2", "2", "1", "1", "1", "1", "1"]
+            weaknesses = flyingWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "psychic" {
-            weaknesses = ["1", "1/2", "2", "1", "2", "1", "2", "1", "1"]
+            weaknesses = psychicWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "bug" {
-            weaknesses = ["2", "1", "1", "2", "1", "1", "1", "1", "1"]
+            weaknesses = bugWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "rock" {
-            weaknesses = ["1/2", "1", "1", "1", "1", "1", "1", "2", "1"]
+            weaknesses = rockWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "ghost" {
-            weaknesses = ["1", "1", "1/2", "1", "2", "1", "2", "1", "1"]
+            weaknesses = ghostWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "dragon" {
-            weaknesses = ["1", "1", "1", "1", "1", "2", "1", "1", "2"]
+            weaknesses = dragonWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "dark" {
-            weaknesses = ["1", "0", "2", "1", "1/2", "1", "1/2", "1", "2"]
+            weaknesses = darkWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "steel" {
-            weaknesses = ["1/2", "1/2", "1/2", "1/2", "1", "1/2", "1", "1/2", "1/2"]
+            weaknesses = steelWeaknessesSecond.map { String($0) }
             return weaknesses
         } else if type1 == "fairy" {
-            weaknesses = ["1", "1", "1/2", "1", "1", "0", "1/2", "2", "1"]
+            weaknesses = fairyWeaknessesSecond.map { String($0) }
             return weaknesses
         }
         return weaknesses
@@ -3841,67 +3841,3 @@ class WeaknessesManager: ObservableObject {
     }
     
 }
-
-//func calculateFirstTypeDefensesForSingleType(type1: String) -> [String] {
-//
-//    var weaknesses: [String] = []
-//
-//    if type1 == "normal" {
-//        weaknesses = ["1", "1", "1", "1", "1", "1", "2", "1", "1", "1", "1", "1", "1", "0", "1", "1", "1", "1"]
-//        return weaknesses
-//    } else if type1 == "fire" {
-//        weaknesses = ["1", "1/2", "2", "1", "1/2", "1/2", "1", "1", "2", "1", "1", "1/2", "2", "1", "1", "1", "1/2", "1"]
-//        return weaknesses
-//    } else if type1 == "water" {
-//        weaknesses = ["1", "1/2", "1/2", "2", "2", "1/2", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1/2", "1"]
-//        return weaknesses
-//    } else if type1 == "electric" {
-//        weaknesses = ["1", "1", "1", "1/2", "1", "1", "1", "1", "2", "1/2", "1", "1", "1", "1", "1", "1", "1/2", "1"]
-//        return weaknesses
-//    } else if type1 == "grass" {
-//        weaknesses = ["1", "2", "1/2", "1/2", "1/2", "2", "1", "2", "1/2", "2", "1", "2", "1", "1", "1", "1", "1", "1"]
-//        return weaknesses
-//    } else if type1 == "ice" {
-//        weaknesses = ["1", "2", "1", "1", "1", "1/2", "2", "1", "1", "1", "1", "1", "2", "1", "1", "1", "2", "1"]
-//        return weaknesses
-//    } else if type1 == "fighting" {
-//        weaknesses = ["1", "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "1/2", "1/2", "1", "1", "1/2", "1", "2"]
-//        return weaknesses
-//    } else if type1 == "poison" {
-//        weaknesses = ["1", "1", "1", "1", "1/2", "1", "1/2", "1/2", "2", "1", "2", "1/2", "1/2", "1", "1", "1", "1", "1/2"]
-//        return weaknesses
-//    } else if type1 == "ground" {
-//        weaknesses = ["1", "1", "2", "0", "2", "2", "1", "1/2", "1", "1", "1", "1", "1/2", "1", "1", "1", "1", "1"]
-//        return weaknesses
-//    } else if type1 == "flying" {
-//        weaknesses = ["1", "1", "1", "2", "1/2", "2", "1/2", "1", "0", "1", "1", "1/2", "2", "1", "1", "1", "1", "1"]
-//        return weaknesses
-//    } else if type1 == "psychic" {
-//        weaknesses = ["1", "1", "1", "1", "1", "1", "1/2", "1", "1", "1", "1/2", "2", "1", "2", "1", "2", "1", "1"]
-//        return weaknesses
-//    } else if type1 == "bug" {
-//        weaknesses = ["1", "2", "1", "1", "1/2", "1", "1/2", "1", "1/2", "2", "1", "1", "2", "1", "1", "1", "1", "1"]
-//        return weaknesses
-//    } else if type1 == "rock" {
-//        weaknesses = ["1/2", "1/2", "2", "1", "2", "1", "2", "1/2", "2", "1/2", "1", "1", "1", "1", "1", "1", "2", "1"]
-//        return weaknesses
-//    } else if type1 == "ghost" {
-//        weaknesses = ["0", "1", "1", "1", "1", "1", "0", "1/2", "1", "1", "1", "1/2", "1", "2", "1", "2", "1", "1"]
-//        return weaknesses
-//    } else if type1 == "dragon" {
-//        weaknesses = ["1", "1/2", "1/2", "1/2", "1/2", "2", "1", "1", "1", "1", "1", "1", "1", "1", "2", "1", "1", "2"]
-//        return weaknesses
-//    } else if type1 == "dark" {
-//        weaknesses = ["1", "1", "1", "1", "1", "1", "2", "1", "1", "1", "0", "2", "1", "1/2", "1", "1/2", "1", "2"]
-//        return weaknesses
-//    } else if type1 == "steel" {
-//        weaknesses = ["1/2", "2", "1", "1", "1/2", "1/2", "2", "0", "2", "1/2", "1/2", "1/2", "1/2", "1", "1/2", "1", "1/2", "1/2"]
-//        return weaknesses
-//    } else if type1 == "fairy" {
-//        weaknesses = ["1", "1", "1", "1", "1", "1", "1/2", "2", "1", "1", "1", "1/2", "1", "1", "0", "1/2", "2", "1"]
-//        return weaknesses
-//    }
-//    return weaknesses
-//}
-
-//weaknesses = ["normal": "1", "fire": "1", "water": "1", "electric": "1", "grass": "1", "ice": "1", "fighting": "1", "poison": "1", "ground": "1", "flying": "1", "psychic": "1", "bug": "1", "rock": "1", "ghost": "1", "dragon": "1", "dark": "1", "steel": "1", "fairy": "1",]
